@@ -53,11 +53,11 @@ const ImageContainer = styled.section`
     }
 `
 
-const Gallery = ({photos= [], setTag, selectPhoto, toggleFavorite, filter }) => {
+const Gallery = ({photos= [],  selectPhoto, toggleFavorite, filter }) => {
     //console.log("Photos in Gallery:", photos); // Log para depuración
     return (
         <>
-            <Tag setTag={setTag} />
+            <Tag setTag={() => {}} />
             <GalleryContainer>
                 <FluidSection>
                     <Title>
@@ -82,7 +82,6 @@ const Gallery = ({photos= [], setTag, selectPhoto, toggleFavorite, filter }) => 
 
 Gallery.propTypes = {
     photos: PropTypes.array,
-    setTag: PropTypes.func.isRequired,
     selectPhoto: PropTypes.func.isRequired,
     toggleFavorite: PropTypes.func.isRequired,
     filter: PropTypes.string.isRequired,
