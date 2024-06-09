@@ -64,6 +64,28 @@ Se ejecuta el proyecto con:
      npm start
 Inicia el proyecto en [http://localhost:5173/](http://localhost:5173/) 
 
+## Hooks
+### useSate
+Está relacionado al state o al estado del componente, las aplicaciones hechas en React, son reactivas, es decir reaccionan a estímulos o eventos, de tal manera que cuando hablamos de estado, nos referimos a la situación de la aplicación.
+
+    //Definición de un estado
+    const [estado, setEstado] = useState(<valor inicial>);
+
+    const [filter, setFilter] = useState('');
+
+### useRef
+Tiene dos propósitos: 
+1. Almacenar valores mutables (valores que cambian en el tiempo) que no deben generar una nueva renderización cuando se actualizan.
+2. Almacenar referencias a elementos del DOM.
+
+        const myRef = useRef();
+
+        const filterBox = useRef(null);
+
+Se obtiene un objeto myRef, el cual permite almacenar valores y acceder a ellos. Para usar la variable myRef con cualquier elemento, la pasamos como la prop ref del elemento.
+
+    <div ref={myRef}>Este div lo accesamos con useRef</div>
+
 ## Errores
 1. Distinguia mayúsculas y minúsculas
     ### Solución
