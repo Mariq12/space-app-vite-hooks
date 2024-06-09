@@ -53,26 +53,26 @@ const ImageContainer = styled.section`
     }
 `
 
-const Gallery = ({photos= [],  selectPhoto, toggleFavorite, filter }) => {
+const Gallery = ({ photos = [], selectPhoto, toggleFavorite, filter }) => {
     //console.log("Photos in Gallery:", photos); // Log para depuración
     return (
         <>
-            <Tag setTag={() => {}} />
+            <Tag setTag={() => { }} />
             <GalleryContainer>
                 <FluidSection>
                     <Title>
                         Navegue por la galería
                     </Title>
                     <ImageContainer>
-                    {photos.filter(photo => {
-                        return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
-                        .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
-                    })
-                    .map(photo=>(<Image 
-                    toggleFavorite={toggleFavorite}
-                    requestZoom={selectPhoto} 
-                        key={photo.id} 
-                        photo={photo} />))}
+                        {photos.filter(photo => {
+                            return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
+                                .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
+                        })
+                            .map(photo => (<Image
+                                toggleFavorite={toggleFavorite}
+                                requestZoom={selectPhoto}
+                                key={photo.id}
+                                photo={photo} />))}
                     </ImageContainer>
                 </FluidSection>
                 <Popular />

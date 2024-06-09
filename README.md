@@ -64,6 +64,51 @@ Se ejecuta el proyecto con:
      npm start
 Inicia el proyecto en [http://localhost:5173/](http://localhost:5173/) 
 
+## Errores
+1. Distinguia mayúsculas y minúsculas
+    ### Solución
+    Utilización de:
+
+        toLowerCase
+
+    Resultado:
+
+    No distingue entre mayúsculas y minúsculas.
+
+2. No permite buscar imágenes si el nombre tiene tilde.
+    ### Solución
+    Utilización de:
+
+        toLocaleLowerCase
+
+    Convierte una cadena a minúsculas considerando las reglas específicas de la configuración regional del idioma, soluciona problemas de conversión a minúsculas en idiomas con *reglas particulares*.
+
+    Resultado:
+
+    Permite buscar sin importar las diferencias de mayúsculas y minúsculas
+
+        normalize
+
+    Normaliza cadenas de texto para realizar una búsqueda más robusta que ignore diacríticos y caracteres especiales.
+
+    Se emplea en Gallery:
+
+        <ImageContainer>
+            {photos.filter(photo => {
+              return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
+                  .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
+            })
+              .map(photo => (<Image
+                  toggleFavorite={toggleFavorite}
+                  requestZoom={selectPhoto}
+                  key={photo.id}
+                  photo={photo} />))}
+        </ImageContainer>
+
+    Resultado:
+
+    Permte buscar sin tener que agregar la tilde .
+
 ## Tecnologias
 * [React + Vite](https://vitejs.dev/guide/)
 * JavaScript
