@@ -65,7 +65,6 @@ const IconMagnifier = styled.img`
 const TextField = ({ setFilter }) => {
     const filterBox = useRef(null);
 
-
     return (
         <StylizedContainer>
             <StyledTextField 
@@ -78,7 +77,6 @@ const TextField = ({ setFilter }) => {
                 alt="ícono de lupa" 
                 onClick={() => {
                     setFilter(filterBox.current.value);
-                
                 }}
             />
         </StylizedContainer>
