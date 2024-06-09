@@ -65,7 +65,8 @@ const Gallery = ({photos= [],  selectPhoto, toggleFavorite, filter }) => {
                     </Title>
                     <ImageContainer>
                     {photos.filter(photo => {
-                        return filter === '' || photo.titulo.toLowerCase().includes(filter.toLowerCase())
+                        return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
+                        .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
                     })
                     .map(photo=>(<Image 
                     toggleFavorite={toggleFavorite}
