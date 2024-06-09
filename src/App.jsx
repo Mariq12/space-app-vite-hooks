@@ -7,7 +7,7 @@ import banner from "./assets/banner.png";
 import Gallery from "./components/gallery/Gallery";
 import photos from "./photos.json";
 import ModalZoom from "./components/modalZoom/ModalZoom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Footer from "./components/footer/Footer";
 
 const FondoGradiente = styled.div`
@@ -39,26 +39,10 @@ const GalleryContent = styled.section`
 `;
 
 const App = () => {
-  const [photosGallery, setPhotosGallery] = useState(photos);
   const [filter, setFilter] = useState('');
-  const [tag, setTag] = useState(0);
+  const [photosGallery, setPhotosGallery] = useState(photos);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  // Para filtrar la búsqueda de las fotos
-  useEffect(() => {
-    const filterPhotos = () => {
-      return photos.filter(photo => {
-        const filterByTag = !tag || photo.tagId === tag;
-        const filterByTitle = !filter || (photo.titulo && photo.titulo.toLowerCase().includes(filter.toLowerCase()));
-        return filterByTag && filterByTitle;
-      });
-    };
-
-    const filteredPhotos = filterPhotos();
-    //console.log("Filtered Photos:", filteredPhotos); // Log para depuración
-    setPhotosGallery(filteredPhotos);
-  }, [filter, tag]);
-
+  
   const toggleFavorite = (photo) => {
     if (photo.id === selectedPhoto?.id) {
       setSelectedPhoto({
@@ -81,7 +65,6 @@ const App = () => {
         <GlobalStyles />
         <AppContainer>
           <Headboard 
-            filter={filter}
             setFilter={setFilter}
           />
           <MainContainer>
@@ -92,7 +75,7 @@ const App = () => {
                 selectPhoto={photo => setSelectedPhoto(photo)} 
                 photos={photosGallery} 
                 toggleFavorite={toggleFavorite}
-                setTag={setTag} 
+                filter={filter}
               />
             </GalleryContent>
           </MainContainer>

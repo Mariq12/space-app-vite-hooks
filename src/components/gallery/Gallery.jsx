@@ -53,18 +53,21 @@ const ImageContainer = styled.section`
     }
 `
 
-const Gallery = ({photos= [], setTag, selectPhoto, toggleFavorite}) => {
+const Gallery = ({photos= [], selectPhoto, toggleFavorite, filter }) => {
     //console.log("Photos in Gallery:", photos); // Log para depuración
     return (
         <>
-            <Tag setTag={setTag} />
+            <Tag setTag={() => {}} />
             <GalleryContainer>
                 <FluidSection>
                     <Title>
                         Navegue por la galería
                     </Title>
                     <ImageContainer>
-                    {photos.map(photo=>(<Image 
+                    {photos.filter(photo => {
+                        return filter === '' || photo.titulo.toLowerCase().includes(filter.toLowerCase())
+                    })
+                    .map(photo=>(<Image 
                     toggleFavorite={toggleFavorite}
                     requestZoom={selectPhoto} 
                         key={photo.id} 
@@ -81,7 +84,7 @@ Gallery.propTypes = {
     photos: PropTypes.array,
     selectPhoto: PropTypes.func.isRequired,
     toggleFavorite: PropTypes.func.isRequired,
-    setTag: PropTypes.func.isRequired
+    filter: PropTypes.string.isRequired,
 }
 
 export default Gallery;

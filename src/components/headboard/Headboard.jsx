@@ -46,8 +46,7 @@ const Headboard = ({ setFilter }) => {
 }
 
 Headboard.propTypes = {
-    filter: PropTypes.string.isRequired,
-    setFilter: PropTypes.func.isRequired,
+    setFilter: PropTypes.func
 };
 
 export default Headboard;
