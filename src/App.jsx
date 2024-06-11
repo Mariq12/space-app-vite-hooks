@@ -42,7 +42,7 @@ const App = () => {
   const [filter, setFilter] = useState('');
   const [photosGallery, setPhotosGallery] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [loandiing, setLoading] = useState(true);  
+  //const [loandiing, setLoading] = useState(true);  
   
   const toggleFavorite = (photo) => {
     if (photo.id === selectedPhoto?.id) {
@@ -65,7 +65,7 @@ const App = () => {
       const res = await fetch("https://api-space-app-vite-hooks.vercel.app/api/fotos")
       const data = await res.json();
       setPhotosGallery([...data]);
-      setLoading(false);
+      //setLoading(false);
     }
 
     setTimeout(() => getData(), 5000);
