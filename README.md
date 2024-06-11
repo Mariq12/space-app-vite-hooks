@@ -131,6 +131,15 @@ Se obtiene un objeto myRef, el cual permite almacenar valores y acceder a ellos.
 
     Permte buscar sin tener que agregar la tilde .
 
+## Intalación
+### Opcional
+1. Instalación del paquete de **[React-Loaders-Kit](https://seimodei.github.io/react-loaders-kit-examples/)**, ejecuando en cmd dentro del proyecto:
+
+    npm i --save react-loaders-kit
+
+2. Creación del componente Loading.
+3. Conectar en el App.jsx.
+
 ## Tecnologias
 * [React + Vite](https://vitejs.dev/guide/)
 * JavaScript
