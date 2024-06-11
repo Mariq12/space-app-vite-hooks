@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TextField from "../textField/TextField";
-import PropTypes from 'prop-types';
+import { GlobalContext } from "../../context/GlobalContext";
+import { useContext } from "react";
 
 const StylizedHeader = styled.header`
     padding: 60px 0;
@@ -36,7 +37,8 @@ const StylizedHeader = styled.header`
     }
 `;
 
-const Headboard = ({ setFilter }) => {
+const Headboard = () => {
+    const { setFilter } = useContext(GlobalContext);
     return (
         <StylizedHeader>
             <img src="img/logo.png" alt="Logo de Space App" />
@@ -44,9 +46,5 @@ const Headboard = ({ setFilter }) => {
         </StylizedHeader>
     );
 }
-
-Headboard.propTypes = {
-    setFilter: PropTypes.func
-};
 
 export default Headboard;

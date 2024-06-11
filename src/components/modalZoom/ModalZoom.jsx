@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import Image from '../gallery/image/Image';
 import styled from 'styled-components';
 import IconButton from '../iconButton/IconButton';
+import { useContext } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const Overlay = styled.div`
     background-color: rgba(0, 0, 0, .7);
@@ -33,14 +34,15 @@ const StyledDialogue = styled.dialog`
     }
 `;
 
-const ModalZoom = ({ photo, close, toggleFavorite }) => {
+const ModalZoom = () => {
+    const {selectedPhoto, toggleFavorite, setSelectedPhoto} = useContext(GlobalContext);
     return (
         <>
-            {photo && (
+            {selectedPhoto && (
                 <>
                     <Overlay />
-                    <StyledDialogue open={!!photo} onClose={close}>
-                        <Image photo={photo} expandida={true} toggleFavorite={toggleFavorite} />
+                    <StyledDialogue open={!!selectedPhoto} onClose={() => setSelectedPhoto(null)}>
+                        <Image photo={selectedPhoto} expandida={true} toggleFavorite={toggleFavorite} />
                         <form method="dialog">
                             <IconButton>
                                 <img src='/icons/cerrar.png' alt='Icono de cerrar' />
@@ -52,11 +54,5 @@ const ModalZoom = ({ photo, close, toggleFavorite }) => {
         </>
     );
 }
-
-ModalZoom.propTypes = {
-    photo: PropTypes.object,
-    close: PropTypes.func.isRequired,
-    toggleFavorite: PropTypes.func.isRequired
-};
 
 export default ModalZoom;

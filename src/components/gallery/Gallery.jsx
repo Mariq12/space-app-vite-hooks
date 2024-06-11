@@ -2,8 +2,10 @@ import Title from "../title/Title";
 import Tag from "./tags/Tags";
 import Popular from "./popular/Popular";
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import Image from "./image/Image";
+import Loading from "../loading/Loading";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const GalleryContainer = styled.div`
     display: flex;
@@ -53,39 +55,36 @@ const ImageContainer = styled.section`
     }
 `
 
-const Gallery = ({ photos = [], selectPhoto, toggleFavorite, filter }) => {
+const Gallery = () => {
     //console.log("Photos in Gallery:", photos); // Log para depuración
+    const {filter, photosGallery, toggleFavorite, setSelectedPhoto} = useContext(GlobalContext);
+
     return (
-        <>
-            <Tag setTag={() => { }} />
-            <GalleryContainer>
-                <FluidSection>
-                    <Title>
-                        Navegue por la galería
-                    </Title>
-                    <ImageContainer>
-                        {photos.filter(photo => {
-                            return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
-                                .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
-                        })
-                            .map(photo => (<Image
-                                toggleFavorite={toggleFavorite}
-                                requestZoom={selectPhoto}
-                                key={photo.id}
-                                photo={photo} />))}
-                    </ImageContainer>
-                </FluidSection>
-                <Popular />
-            </GalleryContainer>
-        </>
+        photosGallery.length == 0 ?
+            <Loading></Loading> :
+            <>
+                <Tag setTag={() => { }} />
+                <GalleryContainer>
+                    <FluidSection>
+                        <Title>
+                            Navegue por la galería
+                        </Title>
+                        <ImageContainer>
+                            {photosGallery.filter(photo => {
+                                return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
+                                    .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
+                            })
+                                .map(photo => (<Image
+                                    toggleFavorite={toggleFavorite}
+                                    requestZoom={photo => setSelectedPhoto(photo)}
+                                    key={photo.id}
+                                    photo={photo} />))}
+                        </ImageContainer>
+                    </FluidSection>
+                    <Popular />
+                </GalleryContainer>
+            </>
     );
 };
-
-Gallery.propTypes = {
-    photos: PropTypes.array,
-    selectPhoto: PropTypes.func.isRequired,
-    toggleFavorite: PropTypes.func.isRequired,
-    filter: PropTypes.string.isRequired,
-}
 
 export default Gallery;
