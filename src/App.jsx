@@ -5,7 +5,6 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Banner from "./components/banner/Banner";
 import banner from "./assets/banner.png";
 import Gallery from "./components/gallery/Gallery";
-import photos from "./photos.json";
 import ModalZoom from "./components/modalZoom/ModalZoom";
 import { useState } from "react";
 import Footer from "./components/footer/Footer";
@@ -40,7 +39,7 @@ const GalleryContent = styled.section`
 
 const App = () => {
   const [filter, setFilter] = useState('');
-  const [photosGallery, setPhotosGallery] = useState(photos);
+  const [photosGallery, setPhotosGallery] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   
   const toggleFavorite = (photo) => {
