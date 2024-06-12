@@ -1,11 +1,12 @@
 import Title from "../title/Title";
-import Tag from "./tags/Tags";
+import Tags from "./tags/Tags";
 import Popular from "./popular/Popular";
 import styled from 'styled-components';
 import Image from "./image/Image";
 import Loading from "../loading/Loading";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+
 
 const GalleryContainer = styled.div`
     display: flex;
@@ -59,24 +60,31 @@ const Gallery = () => {
     //console.log("Photos in Gallery:", photos); // Log para depuración
     //const {filter, photosGallery, toggleFavorite, setSelectedPhoto} = useContext(GlobalContext);
     const {state} = useContext(GlobalContext);
+
+    console.log("Estado global:", state); // Log para depuración
+
+    const filteredPhotos = state.photosGallery.filter(photo => {
+        const matchesFilter = state.filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(state.filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""));
+        const matchesTag = state.selectedTag === null || state.selectedTag === 4 || photo.tagId === state.selectedTag;
+        return matchesFilter && matchesTag;
+    });
+
+    console.log("Fotos filtradas:", filteredPhotos); // Log para depuración
+
     return (
         state.photosGallery.length == 0 ?
             <Loading></Loading> :
             <>
-                <Tag setTag={() => { }} />
+                <Tags />
                 <GalleryContainer>
                     <FluidSection>
                         <Title>
                             Navegue por la galería
                         </Title>
                         <ImageContainer>
-                            {state.photosGallery.filter(photo => {
-                                return state.filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
-                                    .includes(state.filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
-                            })
-                                .map(photo => (<Image
-                                    key={photo.id}
-                                    photo={photo} />))}
+                            {filteredPhotos.map(photo => (
+                                <Image key={photo.id} photo={photo} />
+                            ))}
                         </ImageContainer>
                     </FluidSection>
                     <Popular />

@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import tags from './tags.json'
 import { styled } from 'styled-components'
-import PropTypes from 'prop-types'; 
+import { GlobalContext } from '../../../context/GlobalContext'
+
 
 const BarTags = styled.div`
     display: flex;
@@ -86,19 +88,25 @@ const Div = styled.div`
         margin-left: 0.5rem;
     }
 `
-const Tags = ({ setTag }) => {
+const Tags = () => {
+    const { dispatch } = useContext(GlobalContext);
+
+    const handleTagClick = (tag) => {
+        dispatch({ type: 'SET_SELECTED_TAG', payload: tag.tag });
+    };
+
     return (
         <BarTags>
             <TitleTags>Buscar por etiquetas:</TitleTags>
             <Div>
-                {tags.map(tag => <Tag key={tag.id} onClick={() => setTag(tag.tag)}>{tag.titulo}</Tag>)}
+                {tags.map(tag => (
+                    <Tag key={tag.id} onClick={() => handleTagClick(tag)}>
+                        {tag.titulo}
+                    </Tag>
+                ))}
             </Div>
         </BarTags>
     )
-}
-
-Tags.propTypes = {
-    setTag: PropTypes.func.isRequired
 }
 
 export default Tags

@@ -7,7 +7,8 @@ const initialState = {
     filter: '',
     photosGallery: [],
     selectedPhoto: null,
-    modalOpen: false
+    modalOpen: false,
+    selectedTag: null
 }
 
 const reducer = (state, action) => {
@@ -43,9 +44,12 @@ const reducer = (state, action) => {
                 }
             }
         }
+        case 'SET_SELECTED_TAG':
+            console.log("Tag seleccionado:", action.payload);
+            return { ...state, selectedTag: action.payload };
         default:
             return state;
-        }
+    }
     };
 
 const GlobalContextProvider = ({ children }) => {
@@ -59,6 +63,7 @@ const GlobalContextProvider = ({ children }) => {
         const getData = async () => {
             const res = await fetch("https://api-space-app-vite-hooks.vercel.app/api/fotos")
             const data = await res.json();
+            console.log("Datos de la API:", data); // Log para depuración
             dispatch({ type: 'SET_PHOTOS_GALLERY', payload: data });
             //setPhotosGallery([...data]);
             //setLoading(false);
