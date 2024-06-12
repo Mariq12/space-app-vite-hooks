@@ -144,9 +144,20 @@ Se obtiene un objeto myRef, el cual permite almacenar valores y acceder a ellos.
 ## ⚠️ Atención
 Este proyecto usa una API hospedada en Vercel. 
 
+## Deploy del proyecto en Vercel
+1. Se crea una carpeta dist
+
+        npm run build
+
+2. Se debe asegurarse que se suba a GitHub
+
+        Comentar la carpeta "dist" en gitignore
+
 ## Ver Demo
 
-Ver Demo en [Vercel]()
+![space-app-vite-hooks](https://github.com/Mariq12/space-app-vite-hooks/assets/101030215/04c85680-50f6-4e0f-8040-c31a687f21ca)
+
+Ver Demo en [Vercel](https://space-app-vite-hooks.vercel.app/)
 ## Tecnologias
 * [React + Vite](https://vitejs.dev/guide/)
 * JavaScript
