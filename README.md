@@ -13,6 +13,7 @@ Proyecto React + Vite realizado en dos cursos:
 *Nota:*
 
 En este curso se realizó toda la estructura del proyecto, donde incluye el uso de Styled Components y manipulación de estilos estáticos.
+
 ### Ver Demo
 
 ![space-app-vite](https://github.com/Mariq12/space-app-vite/assets/101030215/eac4b4bf-cb1d-4a90-bd51-80ba471c1163)
@@ -24,12 +25,12 @@ Ir al repositorio de [GitHub](https://github.com/Mariq12/space-app-vite)
 ---
 
 <p>
-<img src="https://img.shields.io/badge/PARTE%202-red?style=for-the-badge" alt="PARTE 2">
+  <img src="https://img.shields.io/badge/PARTE 2-brightgreen?style=for-the-badge" alt="Completado">
 </p>
 
+![Completado](https://img.shields.io/badge/status-completado-brightgreen) 
 
-![En proceso](https://img.shields.io/badge/status-en_proceso-red)
- + ⏳ **Curso de Hooks en ReactJS: conociendo su potencial y utilidad.**
++ ✔️ **Curso de Hooks en ReactJS: conociendo su potencial y utilidad.**
 
 ## <p align="center">PARTE 2</p>
 ## Descripción
@@ -140,6 +141,12 @@ Se obtiene un objeto myRef, el cual permite almacenar valores y acceder a ellos.
 2. Creación del componente Loading.
 3. Conectar en el App.jsx.
 
+## ⚠️ Atención
+Este proyecto usa una API hospedada en Vercel. 
+
+## Ver Demo
+
+Ver Demo en [Vercel]()
 ## Tecnologias
 * [React + Vite](https://vitejs.dev/guide/)
 * JavaScript
