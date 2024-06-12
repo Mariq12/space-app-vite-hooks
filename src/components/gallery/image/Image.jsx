@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import IconButton from '../../iconButton/IconButton';
 import { useContext } from 'react';
 import { GlobalContext } from '../../../context/GlobalContext';
+import usePhotoModal from '../../../hooks/usePhotoModal';
 
 const Figure = styled.figure`
     width: ${(props) => (props.$expandida ? '90%' : '370px')};
@@ -48,6 +49,7 @@ const Footer = styled.footer`
 `;
 
 const Image = ({ photo, expandida = false }) => {
+    const { openPhotoModal } = usePhotoModal();
     const { dispatch } = useContext(GlobalContext);
     const favoriteIcon = photo.favorite ? '/icons/favorito-activo.png' : '/icons/favorito.png';
 
@@ -62,7 +64,7 @@ const Image = ({ photo, expandida = false }) => {
                         <img src={favoriteIcon} alt='Icono de favorito' />
                     </IconButton>
                     {!expandida && (
-                        <IconButton aria-hidden={expandida} onClick={() => dispatch({ type: 'SET_SELECTED_PHOTO', payload: photo })}>
+                        <IconButton aria-hidden={expandida} onClick={() => openPhotoModal(photo)}>
                             <img src='/icons/expandir.png' alt='Icono de expandir' />
                         </IconButton>
                     )}

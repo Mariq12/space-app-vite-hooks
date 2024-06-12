@@ -7,6 +7,7 @@ const initialState = {
     filter: '',
     photosGallery: [],
     selectedPhoto: null,
+    modalOpen: false
 }
 
 const reducer = (state, action) => {
@@ -16,12 +17,18 @@ const reducer = (state, action) => {
     case 'SET_PHOTOS_GALLERY':
         return { ...state, photosGallery: action.payload };
     case 'SET_SELECTED_PHOTO':
-        return { ...state, selectedPhoto: action.payload };
+        return { 
+            ...state, 
+            selectedPhoto: action.payload,
+            modalOpen: action.payload !== null ? true : false
+        };
         case 'TOGGLE_FAVORITE': {
-            const photosGallery = state.photosGallery.map(photoGallery => ({
-                ...photoGallery,
-                favorite: photoGallery.id === action.payload.id ? !photoGallery.favorite : photoGallery.favorite
-            }));
+            const photosGallery = state.photosGallery.map(photoGallery => {
+                return {
+                    ...photoGallery,
+                    favorite: photoGallery.id === action.payload.id ? !action.payload.favorite : photoGallery.favorite
+                };
+            } );
             if (action.payload.id === state.selectedPhoto?.id){
                 return {
                     ...state,
@@ -32,8 +39,7 @@ const reducer = (state, action) => {
                 } 
             } else {
                 return {
-                    ...state,
-                    photosGallery: photosGallery
+                    ...state, photosGallery: photosGallery
                 }
             }
         }
@@ -43,7 +49,6 @@ const reducer = (state, action) => {
     };
 
 const GlobalContextProvider = ({ children }) => {
-    
 
     const [state, dispatch] = useReducer(reducer, initialState);
     //const [filter, setFilter] = useState('');
@@ -84,8 +89,6 @@ const GlobalContextProvider = ({ children }) => {
         </GlobalContext.Provider>
     );
 }
-
-
 
 GlobalContextProvider.propTypes = {
     children: PropTypes.node.isRequired

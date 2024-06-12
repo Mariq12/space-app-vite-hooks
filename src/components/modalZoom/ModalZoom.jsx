@@ -1,8 +1,7 @@
 import Image from "../gallery/image/Image";
 import styled from "styled-components";
 import IconButton from "../iconButton/IconButton";
-import { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
+import usePhotoModal from "../../hooks/usePhotoModal";
 
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -35,30 +34,30 @@ const StyledDialogue = styled.dialog`
 `;
 
 const ModalZoom = () => {
-    const { state, dispatch } = useContext(GlobalContext);
-    return (
-        <>
-            {state.selectedPhoto && 
-                <>
-                    <Overlay />
-                    <StyledDialogue
-                        open={!!state.selectedPhoto}
-                        onClose={() => dispatch ({ type: "SET_SELECTED_PHOTO", payload: null})}
-                    >
-                        <Image
-                            photo={state.selectedPhoto}
-                            expandida={true}
-                        />
-                        <form method="dialog">
-                            <IconButton>
-                                <img src="/icons/cerrar.png" alt="Icono de cerrar" />
-                            </IconButton>
-                        </form>
-                    </StyledDialogue>
-                </>
-            }
+  const { isOpenModal, selectedPhoto, closePhotoModal } = usePhotoModal();
+  //const { state, dispatch } = useContext(GlobalContext);
+  
+  return (
+    <>
+      {isOpenModal && <>
+          <Overlay />
+          <StyledDialogue
+            open={!!selectedPhoto}
+            onClose={() => closePhotoModal()}>
+            <Image
+              photo={selectedPhoto}
+              expandida={true}
+            />
+            <form method="dialog">
+              <IconButton>
+                <img src="/icons/cerrar.png" alt="Icono de cerrar" />
+              </IconButton>
+            </form>
+          </StyledDialogue>
         </>
-    );
+      }
+    </>
+  );
 };
 
 export default ModalZoom;
