@@ -46,6 +46,23 @@ En este proyecto se aplican las funciones que React nos ofrece, conocidas como H
 + Utilización de useReducer en Aplicaciones Complejas.
 + Construcción de Hooks Personalizados.
 
+## ⚠️ Atención
+Este proyecto usa una API hospedada en Vercel. 
+
+## Deploy del proyecto en Vercel
+1. Se crea una carpeta dist
+
+        npm run build
+
+2. Se debe asegurarse que se suba a GitHub
+
+        Comentar la carpeta "dist" en gitignore
+
+## Ver Demo
+
+![space-app-vite-hooks](https://github.com/Mariq12/space-app-vite-hooks/assets/101030215/04c85680-50f6-4e0f-8040-c31a687f21ca)
+
+Ver Demo en [Vercel](https://space-app-vite-hooks.vercel.app/)
 
 ## Iniciar el proyecto
 Ejecutar:
@@ -69,6 +86,8 @@ Inicia el proyecto en [http://localhost:5173/](http://localhost:5173/)
 ### useSate
 Está relacionado al state o al estado del componente, las aplicaciones hechas en React, son reactivas, es decir reaccionan a estímulos o eventos, de tal manera que cuando hablamos de estado, nos referimos a la situación de la aplicación.
 
+**Estructura:**
+
     //Definición de un estado
     const [estado, setEstado] = useState(<valor inicial>);
 
@@ -79,6 +98,8 @@ Tiene dos propósitos:
 1. Almacenar valores mutables (valores que cambian en el tiempo) que no deben generar una nueva renderización cuando se actualizan.
 2. Almacenar referencias a elementos del DOM.
 
+**Estructura:**
+
         const myRef = useRef();
 
         const filterBox = useRef(null);
@@ -86,6 +107,38 @@ Tiene dos propósitos:
 Se obtiene un objeto myRef, el cual permite almacenar valores y acceder a ellos. Para usar la variable myRef con cualquier elemento, la pasamos como la prop ref del elemento.
 
     <div ref={myRef}>Este div lo accesamos con useRef</div>
+
+## useEffect
+Agrega la capacidad de realizar efectos secundarios desde un componente de función. 
+
+**Estructura:**
+
+    useEffect(() => {
+    const fetchData = async () => {
+        const res = await fetch('url/api/fotos');
+        const data = await res.json();
+        setFotosGaleria(data);
+    };
+    fetchData();
+    }, []);
+
+Utiliza un array de dependencias vacío [] para garantizar que el efecto se ejecute sólo una vez, simulando componentDidMount.
+
+## useContext
+Permite leer y suscribirse al contexto del componente.
+
+**Estructura:** 
+
+    const value = useContext(SomeContext)
+
+    const { state, dispatch } = useContext(GlobalContext);
+
+## useReducer
+Permite agregar un reductor al componente.
+
+**Estructura:**
+
+    const [state, dispatch] = useReducer(reducer, initialArg, init?)
 
 ## Errores
 1. Distinguia mayúsculas y minúsculas
@@ -141,23 +194,6 @@ Se obtiene un objeto myRef, el cual permite almacenar valores y acceder a ellos.
 2. Creación del componente Loading.
 3. Conectar en el App.jsx.
 
-## ⚠️ Atención
-Este proyecto usa una API hospedada en Vercel. 
-
-## Deploy del proyecto en Vercel
-1. Se crea una carpeta dist
-
-        npm run build
-
-2. Se debe asegurarse que se suba a GitHub
-
-        Comentar la carpeta "dist" en gitignore
-
-## Ver Demo
-
-![space-app-vite-hooks](https://github.com/Mariq12/space-app-vite-hooks/assets/101030215/04c85680-50f6-4e0f-8040-c31a687f21ca)
-
-Ver Demo en [Vercel](https://space-app-vite-hooks.vercel.app/)
 ## Tecnologias
 * [React + Vite](https://vitejs.dev/guide/)
 * JavaScript
