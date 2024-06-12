@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import TextField from "../textField/TextField";
-import { GlobalContext } from "../../context/GlobalContext";
-import { useContext } from "react";
 
 const StylizedHeader = styled.header`
     padding: 60px 0;
@@ -38,11 +36,10 @@ const StylizedHeader = styled.header`
 `;
 
 const Headboard = () => {
-    const { setFilter } = useContext(GlobalContext);
     return (
         <StylizedHeader>
             <img src="img/logo.png" alt="Logo de Space App" />
-            <TextField setFilter={setFilter} />   
+            <TextField />   
         </StylizedHeader>
     );
 }

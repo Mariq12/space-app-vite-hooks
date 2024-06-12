@@ -35,21 +35,19 @@ const StyledDialogue = styled.dialog`
 `;
 
 const ModalZoom = () => {
-    const { selectedPhoto, toggleFavorite, setSelectedPhoto } =
-        useContext(GlobalContext);
+    const { state, dispatch } = useContext(GlobalContext);
     return (
         <>
-            {selectedPhoto && 
+            {state.selectedPhoto && 
                 <>
                     <Overlay />
                     <StyledDialogue
-                        open={!!selectedPhoto}
-                        onClose={() => setSelectedPhoto(null)}
+                        open={!!state.selectedPhoto}
+                        onClose={() => dispatch ({ type: "SET_SELECTED_PHOTO", payload: null})}
                     >
                         <Image
-                            photo={selectedPhoto}
+                            photo={state.selectedPhoto}
                             expandida={true}
-                            toggleFavorite={toggleFavorite}
                         />
                         <form method="dialog">
                             <IconButton>

@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import PropTypes from 'prop-types';
 import IconButton from '../../iconButton/IconButton';
+import { useContext } from 'react';
+import { GlobalContext } from '../../../context/GlobalContext';
 
 const Figure = styled.figure`
     width: ${(props) => (props.$expandida ? '90%' : '370px')};
@@ -37,19 +39,17 @@ const Figure = styled.figure`
     @media (max-width: 688px) {
         width: 42vh;
     }
-`
+`;
+
 const Footer = styled.footer`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`
+`;
 
-const Image = ({ photo, expandida = false, requestZoom, toggleFavorite }) => {
-    //const favoriteIcon = photo.favorite ? '/icons/favorito-activo.png' : '/icons/favorito.png'
-    let favoriteIcon = '/icons/favorito.png';
-    if (photo.favorite) {
-        favoriteIcon = '/icons/favorito-activo.png'
-    }
+const Image = ({ photo, expandida = false }) => {
+    const { dispatch } = useContext(GlobalContext);
+    const favoriteIcon = photo.favorite ? '/icons/favorito-activo.png' : '/icons/favorito.png';
 
     return (
         <Figure $expandida={expandida} id={`photo-${photo.id}`}>
@@ -58,24 +58,23 @@ const Image = ({ photo, expandida = false, requestZoom, toggleFavorite }) => {
                 <h3>{photo.titulo}</h3>
                 <Footer>
                     <h4>{photo.fuente}</h4>
-                    <IconButton onClick={()=>toggleFavorite(photo)}>
+                    <IconButton onClick={() => dispatch({ type: 'TOGGLE_FAVORITE', payload: photo })}>
                         <img src={favoriteIcon} alt='Icono de favorito' />
                     </IconButton>
-                    {!expandida && <IconButton aria-hidden=
-                        {expandida} onClick={() => requestZoom(photo)}>
-                        <img src='/icons/expandir.png' alt='Icono de expandir' />
-                    </IconButton>}
+                    {!expandida && (
+                        <IconButton aria-hidden={expandida} onClick={() => dispatch({ type: 'SET_SELECTED_PHOTO', payload: photo })}>
+                            <img src='/icons/expandir.png' alt='Icono de expandir' />
+                        </IconButton>
+                    )}
                 </Footer>
             </figcaption>
         </Figure>
-    )
-}
+    );
+};
 
 Image.propTypes = {
-    photo: PropTypes.object,
+    photo: PropTypes.object.isRequired,
     expandida: PropTypes.bool,
-    requestZoom: PropTypes.func,
-    toggleFavorite: PropTypes.func
-}
+};
 
-export default Image
+export default Image;

@@ -1,7 +1,7 @@
-import { useRef} from "react";
+import { useContext, useRef} from "react";
 import { styled } from "styled-components"
 import search from '../../assets/icons/search.png'
-import PropTypes from 'prop-types';
+import { GlobalContext } from "../../context/GlobalContext";
 
 const StylizedContainer = styled.div`
     position: relative;
@@ -62,8 +62,9 @@ const IconMagnifier = styled.img`
     }
 `;
 
-const TextField = ({ setFilter }) => {
+const TextField = () => {
     const filterBox = useRef(null);
+    const { dispatch } = useContext(GlobalContext);
 
     return (
         <StylizedContainer>
@@ -76,14 +77,11 @@ const TextField = ({ setFilter }) => {
                 src={search} 
                 alt="ícono de lupa" 
                 onClick={() => {
-                    setFilter(filterBox.current.value);
+                    dispatch({ type: 'SET_FILTER', payload: filterBox.current.value });
                 }}
             />
         </StylizedContainer>
     )
 }
 
-TextField.propTypes = {
-    setFilter: PropTypes.func.isRequired
-};
 export default TextField

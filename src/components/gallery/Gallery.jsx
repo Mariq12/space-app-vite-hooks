@@ -57,10 +57,10 @@ const ImageContainer = styled.section`
 
 const Gallery = () => {
     //console.log("Photos in Gallery:", photos); // Log para depuración
-    const {filter, photosGallery, toggleFavorite, setSelectedPhoto} = useContext(GlobalContext);
-
+    //const {filter, photosGallery, toggleFavorite, setSelectedPhoto} = useContext(GlobalContext);
+    const {state} = useContext(GlobalContext);
     return (
-        photosGallery.length == 0 ?
+        state.photosGallery.length == 0 ?
             <Loading></Loading> :
             <>
                 <Tag setTag={() => { }} />
@@ -70,13 +70,11 @@ const Gallery = () => {
                             Navegue por la galería
                         </Title>
                         <ImageContainer>
-                            {photosGallery.filter(photo => {
-                                return filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
-                                    .includes(filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
+                            {state.photosGallery.filter(photo => {
+                                return state.filter === '' || photo.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")
+                                    .includes(state.filter.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
                             })
                                 .map(photo => (<Image
-                                    toggleFavorite={toggleFavorite}
-                                    requestZoom={photo => setSelectedPhoto(photo)}
                                     key={photo.id}
                                     photo={photo} />))}
                         </ImageContainer>
